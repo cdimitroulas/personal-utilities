@@ -29,8 +29,19 @@ wget -O ~/Software/git-number/1.0.1.zip https://github.com/holygeek/git-number/a
   sudo ln -s ~/Software/git-number/1.0.1/git-id /usr/bin/git-id && \
   sudo ln -s ~/Software/git-number/1.0.1/git-list /usr/bin/git-list
 
+
+
 # Use Neovim for some of the editor alternatives
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
+
+# Install Docker
+sudo apt-get install apt-transport-https ca-certificates gnupg-agent software-properties-common && \
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+  # TODO automate docker download fingerprint verification somehow?
+  # sudo apt-key fingerprint 0EBFCD88 | grep "9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88"
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+  sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io &&
+  sudo usermod -aG docker $USER
